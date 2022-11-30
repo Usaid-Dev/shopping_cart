@@ -1,12 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shopping_cart/cart_model.dart';
+import 'package:shopping_cart/db_helper.dart';
 
 class CartProvider with ChangeNotifier {
+  DBHelper db = DBHelper();
+
   int _counter = 0;
   int get counter => _counter;
 
   double _totalPrice = 0.0;
   double get totalPrice => _totalPrice;
+
+  late Future<List<Cart>> _cart;
+  Future<List<Cart>> get cart => _cart;
+
+  Future<List<Cart>> getData() async {
+    _cart = db.getCartList();
+    return _cart;
+  }
 
   void _setPrefItems() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
