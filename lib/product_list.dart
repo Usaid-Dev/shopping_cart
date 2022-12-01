@@ -21,7 +21,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
     'Orange',
     'Grapes',
     'Banana',
-    'Chery',
+    'Cherry',
     'Peach',
     'Mixed Fruit Basket',
   ];
@@ -56,7 +56,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
           InkWell(
             onTap: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => CartScreen()));
+                  MaterialPageRoute(builder: (context) => const CartScreen()));
             },
             child: Center(
               child: Badge(
@@ -64,7 +64,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                   builder: (context, value, child) {
                     return Text(
                       value.getCounter().toString(),
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     );
                   },
                 ),

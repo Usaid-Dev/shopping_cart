@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_cart/cart_model.dart';
 import 'package:shopping_cart/cart_provider.dart';
+import 'package:shopping_cart/db_helper.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -12,6 +13,8 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  DBHelper? dbHelper = DBHelper();
+
   @override
   Widget build(BuildContext context) {
     final cart = Provider.of<CartProvider>(context);
@@ -73,12 +76,36 @@ class _CartScreenState extends State<CartScreen> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          snapshot.data![index].productName
-                                              .toString(),
-                                          style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w500),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              snapshot.data![index].productName
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                dbHelper!.delete(
+                                                    snapshot.data![index].id!);
+                                                cart.removeCounter();
+                                                cart.removeTotalPrice(
+                                                  double.parse(
+                                                    snapshot.data![index]
+                                                        .productPrice
+                                                        .toString(),
+                                                  ),
+                                                );
+                                              },
+                                              child: const Icon(
+                                                Icons.delete,
+                                                color: Colors.red,
+                                              ),
+                                            )
+                                          ],
                                         ),
                                         const SizedBox(height: 5),
                                         Text(
@@ -105,11 +132,31 @@ class _CartScreenState extends State<CartScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
-                                              child: const Center(
-                                                child: Text(
-                                                  "Add to cart",
-                                                  style: TextStyle(
-                                                      color: Colors.white),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    const Icon(
+                                                      Icons.add,
+                                                      color: Colors.white,
+                                                    ),
+                                                    Text(
+                                                      snapshot
+                                                          .data![index].quantity
+                                                          .toString(),
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                    const Icon(
+                                                      Icons.remove,
+                                                      color: Colors.white,
+                                                    )
+                                                  ],
                                                 ),
                                               ),
                                             ),
@@ -130,7 +177,50 @@ class _CartScreenState extends State<CartScreen> {
               }
               return const Text('');
             },
+          ),
+          Consumer<CartProvider>(
+            builder: (context, value, child) {
+              return Visibility(
+                visible: value.getTotalPrice().toStringAsFixed(2) == '0.00'
+                    ? false
+                    : true,
+                child: Column(
+                  children: [
+                    ReusableWidget(
+                      title: 'Sub Total',
+                      value: r'$' + value.getTotalPrice().toStringAsFixed(2),
+                    )
+                  ],
+                ),
+              );
+            },
           )
+        ],
+      ),
+    );
+  }
+}
+
+class ReusableWidget extends StatelessWidget {
+  final String title, value;
+
+  const ReusableWidget({required this.title, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
+          Text(
+            value.toString(),
+            style: Theme.of(context).textTheme.subtitle2,
+          ),
         ],
       ),
     );
