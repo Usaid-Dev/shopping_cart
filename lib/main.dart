@@ -14,16 +14,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => CartProvider(),
-      child: Builder(builder: (BuildContext context) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          home: const ProductListScreen(),
-        );
-      }),
+      child: Builder(
+        builder: (BuildContext context) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              primarySwatch: Colors.green,
+            ),
+            home: const ProductListScreen(),
+          );
+        },
+      ),
     );
   }
 }

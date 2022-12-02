@@ -17,8 +17,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
   DBHelper? dbHelper = DBHelper();
 
   List<String> productName = [
+    'Eggs',
     'Mango',
     'Orange',
+    'Bread',
     'Grapes',
     'Banana',
     'Cherry',
@@ -26,18 +28,22 @@ class _ProductListScreenState extends State<ProductListScreen> {
     'Mixed Fruit Basket',
   ];
   List<String> productUnit = [
+    'Dozen',
     'KG',
     'Dozen',
+    'KG',
     'KG',
     'Dozen',
     'KG',
     'KG',
     'KG',
   ];
-  List<int> productPrice = [10, 20, 30, 40, 50, 60, 70];
+  List<int> productPrice = [10, 20, 30, 40, 50, 60, 70, 80, 90];
   List<String> productImage = [
+    'https://media.istockphoto.com/id/91261622/photo/eggs.jpg?s=612x612&w=0&k=20&c=6Tixf53VmUqsjVMSQz8q_d0oBr72SZ_dSGNlcJLry-g=',
     'https://image.shutterstock.com/image-photo/mango-isolated-on-white-background-600w-610892249.jpg',
     'https://image.shutterstock.com/image-photo/orange-fruit-slices-leaves-isolated-600w-1386912362.jpg',
+    'https://www.pngmart.com/files/16/Loaf-Bread-PNG-Image.png',
     'https://image.shutterstock.com/image-photo/green-grape-leaves-isolated-on-600w-533487490.jpg',
     'https://media.istockphoto.com/photos/banana-picture-id1184345169?s=612x612',
     'https://media.istockphoto.com/photos/cherry-trio-with-stem-and-leaf-picture-id157428769?s=612x612',
@@ -50,6 +56,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
     final cart = Provider.of<CartProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Product List'),
         centerTitle: true,
         actions: [
