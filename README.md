@@ -1,16 +1,9 @@
-# shopping_cart
+# Shopping Cart
 
-A new Flutter project.
+A completely responsive Shopping_Cart App- Works on Android & IOS
 
-## Getting Started
+### Images of App
 
-This project is a starting point for a Flutter application.
+<img src="https://user-images.githubusercontent.com/67046451/205228046-e849a502-ce39-4526-a3ac-1f7dee0e92fe.png">
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<img src="https://user-images.githubusercontent.com/67046451/205228287-504144e0-3c2a-4946-a8c3-028052a35d28.png">
